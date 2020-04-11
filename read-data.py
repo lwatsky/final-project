@@ -53,8 +53,8 @@ def restaurant_name(API_KEY):
                 rest_name.append((item['restaurant']['name'], item['restaurant']['id']))
                 names.append(item['restaurant']['name'])
         start += 20
-
     return names
+
 
 def restaurant_id(API_KEY):
     start = 0
@@ -75,6 +75,31 @@ def restaurant_id(API_KEY):
 
     return rest_id
 
+def rating(API_KEY):
+    start = 0
+    rating_lst = []
+    rates = []
+    while start < 100:
+    
+        base_url = "https://developers.zomato.com/api/v2.1/search?"
+        headers = {'Accept': 'application/json', 'user-key': API_KEY}
+        params = {'entity_id': 280, 'entity_type': 'city', 'start': start, 'count' :20, 'sort': 'rating', 'order' : 'desc'}
+        request = requests.get(base_url, headers = headers, params = params)
+        response = json.loads(request.text)
+
+        for item in response['restaurants']:
+    
+            if item['restaurant']['id'] not in rating_lst:
+                rating_lst.append((item['restaurant']['user_rating']['aggregate_rating'], item['restaurant']['id']))
+                rates.append(float(item['restaurant']['user_rating']['aggregate_rating']))
+        start += 20
+    #print(len(rates))
+    #print(rates)
+    return rates
+
+rating(API_KEY)
+
+
 def write_json(API_KEY):
     open_file = open(CACHE_FNAME, 'w')
 
@@ -91,13 +116,43 @@ def write_json(API_KEY):
 #print(zomato(API_KEY))
 write_json(API_KEY)
 
-def write_db(API_KEY):
-    conn = sqlite3.connect('final-database.db')
+def start_db():
+    conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
     cur = conn.cursor()
-    count = 0
+       # cur.execute("DROP TABLE IF EXISTS zomato_data")
+       # cur.execute("DROP TABLE IF EXISTS zomato")
+    cur.execute("DROP TABLE IF EXISTS ZomatoData")
+    cur.execute("CREATE TABLE IF NOT EXISTS ZomatoData (restaurant_name TEXT, restaurant_id INTEGER, restaurant_rating FLOAT)")
 
-    cur.execute("CREATE TABLE IF NOT EXISTS zomato-data (restaurant_name TEXT, restaurant_id INTEGER)")
-    cur.execute("INSERT INTO zomato-data (restaurant_name, restaurant_id) VALUES (?, ?)", restaurant_name(API_KEY), restaurant_id(API_KEY))
+def write_db(rest_data, rest_id, rest_rate):
+
+    try:
+        conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
+        cur = conn.cursor()
+       # cur.execute("DROP TABLE IF EXISTS zomato_data")
+       # cur.execute("DROP TABLE IF EXISTS zomato")
+       # cur.execute("DROP TABLE IF EXISTS ZomatoData")
+       # cur.execute("CREATE TABLE IF NOT EXISTS ZomatoData1 (restaurant_name TEXT, restaurant_id INTEGER)")
+        
+        for i in range(20):
+            _rest_name = rest_data[i]
+            _rest_id = rest_id[i]
+            _rest_rate = rest_rate[i]
+            cur.execute("INSERT INTO ZomatoData (restaurant_name, restaurant_id, restaurant_rating) VALUES (?, ?, ?)", (_rest_name, _rest_id, _rest_rate))
+            conn.commit()
+        print('successfully added')
+        cur.close()
+    except:
+        print("ERROR")
+
+start_db()
+write_db(restaurant_name(API_KEY)[0:20], restaurant_id(API_KEY)[0:20], rating(API_KEY)[0:20])
+write_db(restaurant_name(API_KEY)[20:40], restaurant_id(API_KEY)[20:40], rating(API_KEY)[20:40])
+write_db(restaurant_name(API_KEY)[40:60], restaurant_id(API_KEY)[40:60], rating(API_KEY)[40:60])
+write_db(restaurant_name(API_KEY)[60:80], restaurant_id(API_KEY)[60:80], rating(API_KEY)[60:80])
+write_db(restaurant_name(API_KEY)[80:100], restaurant_id(API_KEY)[80:100], rating(API_KEY)[80:100])
+
+
 
 
 
