@@ -43,7 +43,7 @@ def restaurant_name(API_KEY):
     
         base_url = "https://developers.zomato.com/api/v2.1/search?"
         headers = {'Accept': 'application/json', 'user-key': API_KEY}
-        params = {'entity_id': 280, 'entity_type': 'city', 'start': start, 'count' :20, 'sort': 'rating', 'order' : 'desc'}
+        params = {'entity_id': 285, 'entity_type': 'city', 'start': start, 'count' :20, 'sort': 'rating', 'order' : 'desc'}
         request = requests.get(base_url, headers = headers, params = params)
         response = json.loads(request.text)
 
@@ -63,7 +63,7 @@ def restaurant_id(API_KEY):
     
         base_url = "https://developers.zomato.com/api/v2.1/search?"
         headers = {'Accept': 'application/json', 'user-key': API_KEY}
-        params = {'entity_id': 280, 'entity_type': 'city', 'start': start, 'count' :20, 'sort': 'rating', 'order' : 'desc'}
+        params = {'entity_id': 285, 'entity_type': 'city', 'start': start, 'count' :20, 'sort': 'rating', 'order' : 'desc'}
         request = requests.get(base_url, headers = headers, params = params)
         response = json.loads(request.text)
 
@@ -83,7 +83,7 @@ def rating(API_KEY):
     
         base_url = "https://developers.zomato.com/api/v2.1/search?"
         headers = {'Accept': 'application/json', 'user-key': API_KEY}
-        params = {'entity_id': 280, 'entity_type': 'city', 'start': start, 'count' :20, 'sort': 'rating', 'order' : 'desc'}
+        params = {'entity_id': 285, 'entity_type': 'city', 'start': start, 'count' :20, 'sort': 'rating', 'order' : 'desc'}
         request = requests.get(base_url, headers = headers, params = params)
         response = json.loads(request.text)
 
@@ -105,7 +105,7 @@ def write_json(API_KEY):
 
     base_url = "https://developers.zomato.com/api/v2.1/search?"
     headers = {'Accept': 'application/json', 'user-key': API_KEY}
-    params = {'entity_id': 280, 'entity_type': 'city'}
+    params = {'entity_id': 285, 'entity_type': 'city'}
     request = requests.get(base_url, headers = headers, params = params)
     response = json.loads(request.text)
 
