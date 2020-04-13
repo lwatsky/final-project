@@ -13,7 +13,7 @@ def write_json(API_KEY):
 
     base_url = "https://api.yelp.com/v3/businesses/search"
     headers = {"Authorization" : "Bearer %s" % API_KEY}
-    params = {'term': "restaurants", 'location': 'Detroit', "sort_by": "rating"}
+    params = {'term': "restaurants", 'location': 'Ann Arbor', "sort_by": "rating"}
     request = requests.get(base_url, headers = headers, params = params)
     response = json.loads(request.text)
 
@@ -33,7 +33,7 @@ def pull_data(API_KEY):
     
         base_url = "https://api.yelp.com/v3/businesses/search"
         headers = {"Authorization" : "Bearer %s" % API_KEY}
-        params = {'term': "restaurants", 'location': 'Detroit', "sort_by": "rating", "limit": 50, "offset": offset}
+        params = {'term': "restaurants", 'location': 'Ann Arbor', "sort_by": "rating", "limit": 50, "offset": offset}
         request = requests.get(base_url, headers = headers, params = params)
         response = json.loads(request.text)
 
@@ -57,7 +57,7 @@ def name(pull_data):
   #  print(len(name))
     return name
 
-name(pull_data)
+#name(pull_data)
 
 def rating(pull_data):
     lst = pull_data(API_KEY)
