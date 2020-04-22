@@ -23,18 +23,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 filepath = dir_path + '/' + "google.json"
 
 
-#def write_json(API_KEY, search):
-    #open_file = open(filepath, 'w')
-    #base_url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query={}&location=42.2808,83.7430&type=restaurant&key={}".format(search, API_KEY)
-    
 
-   # request = requests.get(base_url)
-   # response = json.loads(request.text)
-    #open_file.write(json.dumps(response))
-   # open_file.close()
-
-
-#write_json(API_KEY, search)
 
 
 def pull_data(API_KEY, search):
@@ -43,15 +32,12 @@ def pull_data(API_KEY, search):
     response = json.loads(request.text)
    
     total = []
-   # sort_lst = []
 
     for items in response['results']:
         if items['id'] not in total:
             total.append((items['rating'], items['id'], items['name']))
-           # sort_lst.append(float(items['rating']))
     total = sorted(total, key = lambda x: x[0], reverse = True)
-   # print(len(total))
-   # print(total)
+
     return total
 
 
@@ -100,7 +86,6 @@ def start_db():
     try:
         conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
         cur = conn.cursor()
-        cur.execute("DROP TABLE IF EXISTS GoogleData")
         cur.execute("CREATE TABLE IF NOT EXISTS GoogleData (restaurant_name TEXT, restaurant_id INTEGER, restaurant_rating FLOAT, city_id INTEGER)")
         print("table created")
     except:

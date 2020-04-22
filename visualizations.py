@@ -82,3 +82,52 @@ savename3 = "YZVisualization.png"
 visualization1(googlezomato1, title1, savename1)
 visualization1(yelpgoogle2, title2, savename2)
 visualization1(yelpzomato3, title3, savename3)
+
+def visualization2():
+    try:
+        conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
+        cur = conn.cursor()
+        cur.execute("SELECT YelpZomato.restaurant_name, YelpZomato.super_rating, YelpZomato.city_id, GoogleData.restaurant_rating FROM YelpZomato INNER JOIN GoogleData ON YelpZomato.restaurant_name = GoogleData.restaurant_name")
+        data = cur.fetchall()
+        names = []
+        super_ratings = []
+        cityids = []
+        for row in data:
+            names.append(row[0])
+            super_ratings.append(row[1]+row[3])
+            cityids.append(row[2])
+        colors = []
+        for cities in cityids:
+            if cities == 1:
+                colors.append('red')
+            if cities ==2:
+                colors.append('orange')
+            if cities ==3:
+                colors.append('yellow')
+            if cities ==4:
+                colors.append('green')
+            if cities == 5:
+                colors.append('blue')
+
+        xvals = names
+        yvals = super_ratings
+        plt.bar(xvals, yvals, align= 'center', color = colors)
+
+        plt.xticks(rotation= 'horizontal', fontsize =8)
+        plt.ylabel("Max Rating", fontsize = 12)
+        plt.ylim(10, 15)
+        plt.xlabel("Restaurant Name", fontsize = 12)
+        red_patch = mpatches.Patch(color='red', label='Ann Arbor')
+        orange = mpatches.Patch(color='orange', label='Gainesville')
+        yellow = mpatches.Patch(color='yellow', label='Austin')
+        green = mpatches.Patch(color='green', label='Bloomington')
+        blue = mpatches.Patch(color='Blue', label='Madison')
+        plt.legend(handles=[red_patch, orange, yellow, green, blue])
+        plt.title("Restaurants on All 3 API's", fontsize = 15)
+        plt.savefig("All3.png")
+        plt.show()
+
+    except:
+        print("NOT WORKING")
+
+visualization2()

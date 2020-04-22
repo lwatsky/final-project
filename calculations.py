@@ -17,7 +17,6 @@ def join_yelpgoogle():
         cur = conn.cursor()
         cur.execute("SELECT YelpData.restaurant_name, YelpData.restaurant_rating, GoogleData.restaurant_rating, GoogleData.city_id FROM YelpData INNER JOIN GoogleData ON YelpData.restaurant_name = GoogleData.restaurant_name")
         data = cur.fetchall()
-        cur.execute("DROP TABLE IF EXISTS YelpGoogle")
         cur.execute("CREATE TABLE IF NOT EXISTS YelpGoogle (restaurant_name TEXT, yelp_rating FLOAT, google_rating FLOAT, super_rating FLOAT, city_id INTEGER)")
         for row in data:
             restname = row[0]
@@ -40,7 +39,6 @@ def join_yelpzomato():
         cur = conn.cursor()
         cur.execute("SELECT YelpData.restaurant_name, YelpData.restaurant_rating, ZomatoData.restaurant_rating, ZomatoData.city_id FROM YelpData INNER JOIN ZomatoData ON YelpData.restaurant_name = ZomatoData.restaurant_name")
         data = cur.fetchall()
-        cur.execute("DROP TABLE IF EXISTS YelpZomato")
         cur.execute("CREATE TABLE IF NOT EXISTS YelpZomato (restaurant_name TEXT, yelp_rating FLOAT, zomato_rating FLOAT, super_rating FLOAT, city_id INTEGER)")
         for row in data:
             restname = row[0]
@@ -63,7 +61,6 @@ def join_googlezomato():
         cur = conn.cursor()
         cur.execute("SELECT GoogleData.restaurant_name, GoogleData.restaurant_rating, ZomatoData.restaurant_rating, ZomatoData.city_id FROM GoogleData INNER JOIN ZomatoData ON GoogleData.restaurant_name = ZomatoData.restaurant_name")
         data = cur.fetchall()
-        cur.execute("DROP TABLE IF EXISTS GoogleZomato")
         cur.execute("CREATE TABLE IF NOT EXISTS GoogleZomato (restaurant_name TEXT, google_rating FLOAT, zomato_rating FLOAT, super_rating FLOAT, city_id INTEGER)")
         for row in data:
             restname = row[0]

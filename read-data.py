@@ -35,24 +35,7 @@ if city == "Madison":
     entity_id = 1264
     entity_type = "city"
 
-#def zomato(API_KEY):
-  #  start = 0
-  #  restaurant_lst = []
-  #  while start < 100:
-    
-   #     base_url = "https://developers.zomato.com/api/v2.1/search?"
-   #     headers = {'Accept': 'application/json', 'user-key': API_KEY}
-   #     params = {'entity_id': 280, 'entity_type': 'city', 'start': start, 'count' :20, 'sort': 'rating', 'order' : 'desc'}
-    #    request = requests.get(base_url, headers = headers, params = params)
-     #   response = json.loads(request.text)
 
-     #   for item in response['restaurants']:
-    
-      #      if item['restaurant']['id'] not in restaurant_lst:
-       #         restaurant_lst.append((item['restaurant']['name'], item['restaurant']['id']))
-    #    start += 20
-
-   # return restaurant_lst
 def pull_data(API_KEY, entity_id, entity_type):
     total = []
     
@@ -66,12 +49,8 @@ def pull_data(API_KEY, entity_id, entity_type):
     
         if item['restaurant']['id'] not in total:
             total.append((item['restaurant']['name'], item['restaurant']['id'], float(item['restaurant']['user_rating']['aggregate_rating']), item['restaurant']["location"]['city']))
-                #names.append(item['restaurant']['name'])
     total = sorted(total, key = lambda x: x[2], reverse = True)
-    #print(total)
-    #print(entity_id)
-   # print(entity_type)
-   # print(len(total))
+
     return total
 
 def name(city):
@@ -79,7 +58,6 @@ def name(city):
     name = []
     for items in lst:
         name.append(items[0])
-    print(name)
     return name
 
 
@@ -104,8 +82,6 @@ def add_city(city):
     for items in lst:
         cities.append(items[-1])
 
-    print(cities)
-    print(len(cities))
     return cities
 
 
@@ -137,23 +113,12 @@ def convert(city):
             int_lst.append(5)
     return int_lst
 
-#def write_json(API_KEY):
-   # open_file = open(CACHE_FNAME, 'w')
-   # base_url = "https://developers.zomato.com/api/v2.1/search?"
-   # headers = {'Accept': 'application/json', 'user-key': API_KEY}
-   # params = {'entity_id': 1800, 'entity_type': 'subzone'}
-   # request = requests.get(base_url, headers = headers, params = params)
-   # response = json.loads(request.text)
-   # open_file.write(json.dumps(response))
-   # open_file.close()
-#print(zomato(API_KEY))
-#write_json(API_KEY)
+
 
 def start_db():
     try:
         conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
         cur = conn.cursor()
-        cur.execute("DROP TABLE IF EXISTS ZomatoData")
         cur.execute("CREATE TABLE IF NOT EXISTS ZomatoData (restaurant_name TEXT, restaurant_id INTEGER, restaurant_rating FLOAT, city_id INTEGER)")
         print("table created")
     except:
