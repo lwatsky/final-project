@@ -84,7 +84,7 @@ def convert(city):
 
 def start_db():
     try:
-        conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
+        conn = sqlite3.connect('final-database.db')
         cur = conn.cursor()
         cur.execute("CREATE TABLE IF NOT EXISTS GoogleData (restaurant_name TEXT, restaurant_id INTEGER, restaurant_rating FLOAT, city_id INTEGER)")
         print("table created")
@@ -94,7 +94,7 @@ def start_db():
 def write_db(rest_data, rest_id, rest_rate, city_id):
 
     try:
-        conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
+        conn = sqlite3.connect('final-database.db')
         cur = conn.cursor()
         
         for i in range(20):

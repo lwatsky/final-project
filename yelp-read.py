@@ -96,7 +96,7 @@ def convert(city):
 
 
 def start_db():
-    conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
+    conn = sqlite3.connect('final-database.db')
     cur = conn.cursor()
 
     cur.execute("CREATE TABLE IF NOT EXISTS CityIdConversion (city_id INTEGER PRIMARY KEY, city_name TEXT)")
@@ -105,7 +105,7 @@ def start_db():
 def write_db(rest_data, rest_id, rest_rate, city_id):
 
     try:
-        conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
+        conn = sqlite3.connect('final-database.db')
         cur = conn.cursor()
         
         for i in range(20):
@@ -122,7 +122,7 @@ def write_db(rest_data, rest_id, rest_rate, city_id):
 
 def new_table(city_id, city):
     try:
-        conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
+        conn = sqlite3.connect('final-database.db')
         cur = conn.cursor()
     
         cur.execute("INSERT INTO CityIdConversion (city_id, city_name) VALUES (?, ?)", (city_id, city))

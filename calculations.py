@@ -13,7 +13,7 @@ import sqlite3
 
 def join_yelpgoogle():
     try:
-        conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
+        conn = sqlite3.connect('final-database.db')
         cur = conn.cursor()
         cur.execute("SELECT YelpData.restaurant_name, YelpData.restaurant_rating, GoogleData.restaurant_rating, GoogleData.city_id FROM YelpData INNER JOIN GoogleData ON YelpData.restaurant_name = GoogleData.restaurant_name")
         data = cur.fetchall()
@@ -35,7 +35,7 @@ join_yelpgoogle()
 
 def join_yelpzomato():
     try:
-        conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
+        conn = sqlite3.connect('final-database.db')
         cur = conn.cursor()
         cur.execute("SELECT YelpData.restaurant_name, YelpData.restaurant_rating, ZomatoData.restaurant_rating, ZomatoData.city_id FROM YelpData INNER JOIN ZomatoData ON YelpData.restaurant_name = ZomatoData.restaurant_name")
         data = cur.fetchall()
@@ -57,7 +57,7 @@ join_yelpzomato()
 
 def join_googlezomato():
     try:
-        conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
+        conn = sqlite3.connect('final-database.db')
         cur = conn.cursor()
         cur.execute("SELECT GoogleData.restaurant_name, GoogleData.restaurant_rating, ZomatoData.restaurant_rating, ZomatoData.city_id FROM GoogleData INNER JOIN ZomatoData ON GoogleData.restaurant_name = ZomatoData.restaurant_name")
         data = cur.fetchall()

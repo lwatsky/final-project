@@ -20,7 +20,7 @@ savename3 = "YZVisualization.png"
 
 def visualization1(tablename, title, savename):
     try:
-        conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
+        conn = sqlite3.connect('final-database.db')
         cur = conn.cursor()
         cur.execute("SELECT {}.restaurant_name, {}.super_rating, {}.city_id FROM {}".format(tablename, tablename, tablename, tablename))
         names = []
@@ -85,7 +85,7 @@ visualization1(yelpzomato3, title3, savename3)
 
 def visualization2():
     try:
-        conn = sqlite3.connect('/Users/laurenwatsky/Documents/final-project/final-database.db')
+        conn = sqlite3.connect('final-database.db')
         cur = conn.cursor()
         cur.execute("SELECT YelpZomato.restaurant_name, YelpZomato.super_rating, YelpZomato.city_id, GoogleData.restaurant_rating FROM YelpZomato INNER JOIN GoogleData ON YelpZomato.restaurant_name = GoogleData.restaurant_name")
         data = cur.fetchall()
