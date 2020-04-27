@@ -41,30 +41,29 @@ def pull_data(API_KEY, search):
     return total
 
 
-def name(city):
+def name():
     lst = pull_data(API_KEY, search)
     name = []
     for items in lst:
         name.append(items[2])
-    print(name)
     return name
 
-def rest_id(city):
+def rest_id():
     lst = pull_data(API_KEY, search)
     ids = []
     for items in lst:
         ids.append(items[1])
     return ids
 
-def rating(city):
+def rating():
     lst = pull_data(API_KEY, search)
     rates = []
     for items in lst:
         rates.append(items[0])
     return rates
 
-def convert(city):
-    namelst = name(city)
+def convert():
+    namelst = name()
     int_lst = []
     for city1 in range(len(namelst)):
         if city == "Ann Arbor":
@@ -86,6 +85,7 @@ def start_db():
     try:
         conn = sqlite3.connect('final-database.db')
         cur = conn.cursor()
+        cur.execute('DROP TABLE IF EXISTS GoogleData')
         cur.execute("CREATE TABLE IF NOT EXISTS GoogleData (restaurant_name TEXT, restaurant_id INTEGER, restaurant_rating FLOAT, city_id INTEGER)")
         print("table created")
     except:
@@ -112,7 +112,7 @@ def write_db(rest_data, rest_id, rest_rate, city_id):
 
 if city == "Ann Arbor":
     start_db()
-write_db(name(city), rest_id(city), rating(city), convert(city))
+write_db(name(), rest_id(), rating(), convert())
 
 
 

@@ -34,7 +34,7 @@ def pull_data(API_KEY, city):
 
     return rating_lst
 
-def name(city):
+def name():
     lst = pull_data(API_KEY, city)
     name = []
     for items in lst:
@@ -43,7 +43,7 @@ def name(city):
     return name
 
 
-def rating(city):
+def rating():
     lst = pull_data(API_KEY, city)
     rates = []
     for items in lst:
@@ -52,7 +52,7 @@ def rating(city):
     return rates
 
 
-def rest_id(city):
+def rest_id():
     lst = pull_data(API_KEY, city)
     id = []
     for items in lst:
@@ -60,15 +60,15 @@ def rest_id(city):
 
     return id
 
-def add_city(city):
+def add_city():
     lst = pull_data(API_KEY, city)
     cities = []
     for items in lst:
         cities.append(items[3])
     return cities
 
-def convert(city):
-    city_lst = add_city(city)
+def convert():
+    city_lst = add_city()
     int_lst = []
     for city1 in city_lst:
         if city1 == "Ann Arbor":
@@ -98,7 +98,8 @@ def convert(city):
 def start_db():
     conn = sqlite3.connect('final-database.db')
     cur = conn.cursor()
-
+    cur.execute("DROP TABLE IF EXISTS YelpData")
+    cur.execute("DROP TABLE IF EXISTS CityIdConversion")
     cur.execute("CREATE TABLE IF NOT EXISTS CityIdConversion (city_id INTEGER PRIMARY KEY, city_name TEXT)")
     cur.execute("CREATE TABLE IF NOT EXISTS YelpData (restaurant_name TEXT PRIMARY KEY, restaurant_id INTEGER, restaurant_rating FLOAT, city_id INTEGER, FOREIGN KEY(city_id) REFERENCES CityIdConversion(city_id))")
 
@@ -127,7 +128,7 @@ def new_table(city_id, city):
     
         cur.execute("INSERT INTO CityIdConversion (city_id, city_name) VALUES (?, ?)", (city_id, city))
         conn.commit()
-        print("successfully added")
+        print("new table successfully added")
         cur.close()
     except:
         print(city_id)
@@ -137,6 +138,7 @@ def new_table(city_id, city):
 
 if city == "Ann Arbor":
     start_db()
-write_db(name(city), rest_id(city), rating(city), convert(city))
-new_table(convert(city)[0], city)
+write_db(name(), rest_id(), rating(), convert())
+new_table(convert()[0], city)
+
 

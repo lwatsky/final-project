@@ -1,0 +1,32 @@
+The calculated data from the Google+Zomato Superrating
+Sava's: 8.9
+Pacific Rim By Kana: 8.9
+Palm Palace: 8.9
+Satchel's Pizza: 9.5
+The Top: 9.4
+Uchi: 9.3
+Uptown Cafe: 9.2
+The Irish Lion Restaurant & Pub: 9.0
+Brasserie V: 9.1
+The Old Fashioned: 9.3
+
+The calculated data from the Yelp+Zomato Superrating
+Frita Batidos: 9.1
+Mac's Drive Thru: 8.8
+Uptown Cafe: 8.6
+Salvatore's Tomato Pies: 9.0
+
+The calculated data from the Google+Yelp Superrating
+The Lunch Room: 9.2
+Daily Green: 9.2
+Metro Diner: 9.1
+The Owlery Restaurant: 8.7
+Sofra Cafe: 9.2
+Uptown Cafe: 8.6
+Turkuaz Cafe: 9.1
+Samira Restaurant: 9.0
+Nook: 9.9
+Paul's Pel'meni: 9.2
+Graft: 9.2
+Banzo: 9.2
+La Taguara: 9.2

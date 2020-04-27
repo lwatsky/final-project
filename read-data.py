@@ -53,7 +53,7 @@ def pull_data(API_KEY, entity_id, entity_type):
 
     return total
 
-def name(city):
+def name():
     lst = pull_data(API_KEY, entity_id, entity_type)
     name = []
     for items in lst:
@@ -61,14 +61,14 @@ def name(city):
     return name
 
 
-def rest_id(city):
+def rest_id():
     lst = pull_data(API_KEY, entity_id, entity_type)
     ids = []
     for items in lst:
         ids.append(items[1])
     return ids
 
-def rating(city):
+def rating():
     lst = pull_data(API_KEY, entity_id, entity_type)
     rates = []
     for items in lst:
@@ -76,7 +76,7 @@ def rating(city):
     return rates
 
 
-def add_city(city):
+def add_city():
     lst = pull_data(API_KEY, entity_id, entity_type)
     cities = []
     for items in lst:
@@ -85,8 +85,8 @@ def add_city(city):
     return cities
 
 
-def convert(city):
-    city_lst = add_city(city)
+def convert():
+    city_lst = add_city()
     int_lst = []
     for city1 in city_lst:
         if city1 == "Ann Arbor":
@@ -119,7 +119,8 @@ def start_db():
     try:
         conn = sqlite3.connect('final-database.db')
         cur = conn.cursor()
-        cur.execute("CREATE TABLE IF NOT EXISTS ZomatoData (restaurant_name TEXT, restaurant_id INTEGER, restaurant_rating FLOAT, city_id INTEGER)")
+        cur.execute("DROP TABLE IF EXISTS ZomatoData")
+        cur.execute("CREATE TABLE ZomatoData (restaurant_name TEXT, restaurant_id INTEGER, restaurant_rating FLOAT, city_id INTEGER)")
         print("table created")
     except:
         print("table not created")
@@ -144,7 +145,7 @@ def write_db(rest_data, rest_id, rest_rate, city_id):
 
 if city == "Ann Arbor":
     start_db()
-write_db(name(city), rest_id(city), rating(city), convert(city))
+write_db(name(), rest_id(), rating(), convert())
 
 
 
